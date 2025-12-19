@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { TypingAnimation } from '../terminal/TypingAnimation';
-import Scene from '../3d/Scene';
+
 import ParticleBackground from '../particles/ParticleBackground';
 
 interface HeroProps {
@@ -76,12 +76,8 @@ export function Hero({ name, title, tagline, skills, ctaButtons }: HeroProps) {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* 3D Background Scene */}
-      <Scene 
-        mousePosition={mousePosition}
-        scrollProgress={scrollProgress}
-        performanceMode={performanceMode}
-      />
+      {/* 3D Background Scene - Temporarily disabled for deployment */}
+      
       
       {/* Particle Background */}
       <ParticleBackground 
