@@ -1,0 +1,415 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base styles for accessibility and responsive design */
+@layer base {
+  /* Ensure minimum font size on mobile */
+  html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+  }
+  
+  /* Improve focus visibility */
+  *:focus-visible {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+  
+  /* Remove default focus styles for mouse users */
+  *:focus:not(:focus-visible) {
+    outline: none;
+  }
+  
+  /* Ensure proper heading hierarchy */
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.2;
+    font-weight: 600;
+  }
+  
+  /* Improve readability */
+  p, li, td {
+    line-height: 1.6;
+  }
+  
+  /* Ensure minimum touch target size */
+  button, 
+  input[type="button"], 
+  input[type="submit"], 
+  input[type="reset"], 
+  a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Improve form accessibility */
+  input, textarea, select {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  /* Respect reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+  
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    * {
+      border-color: currentColor;
+    }
+  }
+}
+
+/* Component styles */
+@layer components {
+  /* Skip to main content link */
+  .skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    padding: 8px;
+    text-decoration: none;
+    border-radius: 4px;
+    z-index: 1000;
+  }
+  
+  .skip-link:focus {
+    top: 6px;
+  }
+  
+  /* Screen reader only content */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  
+  /* Responsive container */
+  .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  @media (min-width: 640px) {
+    .container {
+      max-width: 640px;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .container {
+      max-width: 768px;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .container {
+      max-width: 1024px;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+  
+  @media (min-width: 1280px) {
+    .container {
+      max-width: 1280px;
+    }
+  }
+  
+  @media (min-width: 1536px) {
+    .container {
+      max-width: 1536px;
+    }
+  }
+}
+
+/* Utility classes */
+@layer utilities {
+  /* Line clamp utilities */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  /* Responsive text sizes */
+  .text-responsive-xs {
+    font-size: 0.75rem;
+  }
+  
+  .text-responsive-sm {
+    font-size: 0.875rem;
+  }
+  
+  .text-responsive-base {
+    font-size: 1rem;
+  }
+  
+  .text-responsive-lg {
+    font-size: 1.125rem;
+  }
+  
+  .text-responsive-xl {
+    font-size: 1.25rem;
+  }
+  
+  @media (min-width: 640px) {
+    .text-responsive-xs { font-size: 0.875rem; }
+    .text-responsive-sm { font-size: 1rem; }
+    .text-responsive-base { font-size: 1.125rem; }
+    .text-responsive-lg { font-size: 1.25rem; }
+    .text-responsive-xl { font-size: 1.5rem; }
+  }
+  
+  @media (min-width: 768px) {
+    .text-responsive-xs { font-size: 1rem; }
+    .text-responsive-sm { font-size: 1.125rem; }
+    .text-responsive-base { font-size: 1.25rem; }
+    .text-responsive-lg { font-size: 1.5rem; }
+    .text-responsive-xl { font-size: 1.875rem; }
+  }
+  
+  /* Focus utilities */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+  }
+  
+  .focus-ring-inset {
+    @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-inset;
+  }
+  
+  /* Animation utilities that respect reduced motion */
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes slideUp {
+    from { 
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to { 
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* High contrast utilities */
+  @media (prefers-contrast: high) {
+    .high-contrast-border {
+      border-width: 2px;
+      border-color: currentColor;
+    }
+  }
+}
+
+:root {
+  /* Light theme colors */
+  --background: #ffffff;
+  --foreground: #171717;
+  --primary: #0070f3;
+  --secondary: #7928ca;
+  --accent: #ff0080;
+  --muted: #f3f4f6;
+  --muted-foreground: #6b7280;
+  --border: #e5e7eb;
+  --error: #ef4444;
+  --success: #10b981;
+  --warning: #f59e0b;
+  
+  /* Typography */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
+  --font-display: "Inter", var(--font-sans);
+  
+  /* Spacing and sizing */
+  --spacing-unit: 4px;
+  
+  /* Animation durations */
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+  
+  /* Easing functions */
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dark theme colors - applied when .dark class is present */
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --primary: #3b82f6;
+  --secondary: #8b5cf6;
+  --accent: #f59e0b;
+  --muted: #374151;
+  --muted-foreground: #9ca3af;
+  --border: #4b5563;
+  --error: #f87171;
+  --success: #34d399;
+  --warning: #fbbf24;
+}
+
+/* System preference fallback - only applies if no .dark class is set */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light):not(.dark) {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+    --primary: #3b82f6;
+    --secondary: #8b5cf6;
+    --accent: #f59e0b;
+    --muted: #374151;
+    --muted-foreground: #9ca3af;
+    --border: #4b5563;
+    --error: #f87171;
+    --success: #34d399;
+    --warning: #fbbf24;
+  }
+}
+
+* {
+  transition: background-color var(--duration-normal) var(--ease-in-out),
+              border-color var(--duration-normal) var(--ease-in-out),
+              color var(--duration-normal) var(--ease-in-out);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .theme-transition {
+    transition: all var(--duration-normal) var(--ease-in-out);
+  }
+}
+
+/* Hero animations */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s var(--ease-out);
+  opacity: 0;
+}
+/* Slide down animation for notifications */
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-down {
+  animation: slide-down 0.3s var(--ease-out);
+}
+/* Force black text in contact form inputs - HIGHEST PRIORITY */
+input[type="text"][name="name"],
+input[type="email"][name="email"],
+textarea[name="message"],
+input[id="name"],
+input[id="email"],
+textarea[id="message"] {
+  color: #000000 !important;
+  font-weight: 500 !important;
+  background-color: #ffffff !important;
+  -webkit-text-fill-color: #000000 !important;
+}
+
+input[type="text"][name="name"]:focus,
+input[type="email"][name="email"]:focus,
+textarea[name="message"]:focus,
+input[id="name"]:focus,
+input[id="email"]:focus,
+textarea[id="message"]:focus {
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+}
+
+input[name="name"]::placeholder,
+input[name="email"]::placeholder,
+textarea[name="message"]::placeholder,
+input[id="name"]::placeholder,
+input[id="email"]::placeholder,
+textarea[id="message"]::placeholder {
+  color: #6b7280 !important;
+  opacity: 1 !important;
+}
+
+/* Override any theme variables */
+.contact-input-black,
+.contact-input-black:focus,
+.contact-input-black:active,
+.contact-input-black:hover {
+  color: #000000 !important;
+  font-weight: 500 !important;
+  -webkit-text-fill-color: #000000 !important;
+}
+
+/* Force override any CSS variables */
+form input,
+form textarea {
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+}
