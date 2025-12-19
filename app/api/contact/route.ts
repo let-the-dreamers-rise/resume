@@ -1,7 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Initialize Resend only when API key is available
+let resend: Resend | null = null;
+
+function getResendClient(): Resend {
+  if (!resend && process.env.RESEND_API_KEY) {
+    resend = new Resend(process.env.RESEND_API_KEY);
+  }
+  return resend!;
+}
 
 // Rate limiting store (in production, use Redis or similar)
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>();
@@ -149,7 +157,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Send email using Resend
-    const emailResult = await resend.emails.send({
+    const resendClient = getResendClient();
+    const emailResult = await resendClient.emails.send({
       from: 'Portfolio Contact <onboarding@resend.dev>', // Using Resend's sandbox domain
       to: ['ashwingoyal2006@gmail.com'], // Your email
       replyTo: email,
