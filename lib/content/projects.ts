@@ -1,8 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { serialize } from 'next-mdx-remote/serialize';
-import { MDXRemoteSerializeResult } from 'next-mdx-remote';
+
 import { Project, ProjectFrontmatter, ProjectFrontmatterSchema, CodeDemoConfig } from './types';
 
 const PROJECTS_DIRECTORY = path.join(process.cwd(), 'content/projects');
@@ -86,11 +85,11 @@ export async function getProjects(): Promise<Project[]> {
 }
 
 /**
- * Get a specific project by slug with MDX content
+ * Get a specific project by slug with content
  */
 export async function getProjectBySlug(slug: string): Promise<{
   project: Project;
-  mdxSource: MDXRemoteSerializeResult;
+  content: string;
 } | null> {
   const filePath = path.join(PROJECTS_DIRECTORY, `${slug}.mdx`);
   
@@ -105,17 +104,18 @@ export async function getProjectBySlug(slug: string): Promise<{
     const validatedFrontmatter = parseProjectFrontmatter(frontmatter, slug);
     const project = frontmatterToProject(validatedFrontmatter, slug, content);
     
-    // Serialize MDX content
-    const mdxSource = await serialize(content, {
-      mdxOptions: {
-        remarkPlugins: [],
-        rehypePlugins: [],
-      },
-    });
+    // Convert markdown to HTML (simple conversion)
+    const htmlContent = content
+      .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+      .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+      .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+      .replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>')
+      .replace(/\*(.*)\*/gim, '<em>$1</em>')
+      .replace(/\n/gim, '<br>');
 
     return {
       project,
-      mdxSource,
+      content: htmlContent,
     };
   } catch (error) {
     console.error(`Error loading project ${slug}:`, error);

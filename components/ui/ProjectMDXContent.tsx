@@ -1,15 +1,13 @@
 'use client';
 
-import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
-
 interface ProjectMDXContentProps {
-  mdxSource: MDXRemoteSerializeResult;
+  content: string;
 }
 
-export function ProjectMDXContent({ mdxSource }: ProjectMDXContentProps) {
+export function ProjectMDXContent({ content }: ProjectMDXContentProps) {
   return (
     <div className="prose prose-lg dark:prose-invert max-w-none">
-      <MDXRemote {...mdxSource} />
+      <div dangerouslySetInnerHTML={{ __html: content }} />
     </div>
   );
 }

@@ -42,7 +42,7 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
     notFound();
   }
 
-  const { project, mdxSource } = result;
+  const { project, content } = result;
 
   return (
     <div className="relative min-h-screen">
@@ -56,7 +56,7 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
       {/* Main Content */}
       <div className="relative z-10">
         <ProjectDetail project={project}>
-          <ProjectMDXContent mdxSource={mdxSource} />
+          <ProjectMDXContent content={content} />
         </ProjectDetail>
       </div>
     </div>
