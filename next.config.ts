@@ -27,7 +27,8 @@ const nextConfig: NextConfig = {
   
   // Experimental features for performance
   experimental: {
-    optimizeCss: true,
+    // Disable CSS optimization to avoid critters dependency issue
+    optimizeCss: false,
     optimizePackageImports: [
       '@heroicons/react',
       'framer-motion',
