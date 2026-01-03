@@ -302,12 +302,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **[Vercel](https://vercel.com/)** - Platform for frontend frameworks
 - **[MDX](https://mdxjs.com/)** - Markdown for the component era
 
-## 📞 Support
-
-If you have questions or need help:
-- 📧 Email: your.email@example.com
-- 🐛 Issues: [GitHub Issues](https://github.com/yourusername/portfolio-website/issues)
-- 💬 Discussions: [GitHub Discussions](https://github.com/yourusername/portfolio-website/discussions)
 
 ---
 
